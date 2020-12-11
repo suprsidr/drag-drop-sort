@@ -1,0 +1,31 @@
+.list-item {
+  background-color: #101116;
+  color: #fff;
+  border-radius: 4px;
+  padding: 8px;
+  transition: background-color .3s ease-out;
+  margin-top: 8px;
+
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  grid-gap: .5rem;
+
+  &:hover {
+    background-color: #252A30;
+  }
+
+  > div:first-of-type {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+  }
+
+  > div:last-of-type {
+    display: grid;
+    align-items: center;
+  }
+
+  .lock {
+    color: #252A30;
+  }
+}
