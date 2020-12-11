@@ -39,7 +39,7 @@ const ListItem = ({ id, text, index, locked, setLockIndex }) => {
               <FaGripVertical />
             </div>
           )}
-          {locked && (
+          {locked === true && (
             <div className="lock">
               <FaLock />
             </div>

@@ -1,0 +1,6 @@
+.columns {
+  display: grid;
+  height: 720px;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px
+}

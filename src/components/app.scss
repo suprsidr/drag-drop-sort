@@ -1,0 +1,13 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+body {
+  transition: background .5s;
+}
+
+a {
+  color: #4994c5;
+}
+
+a:hover {
+  color: #0679c5;
+}

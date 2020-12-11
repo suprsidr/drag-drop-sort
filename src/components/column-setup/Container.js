@@ -1,39 +1,37 @@
-import React, { useState } from "react";
-import Column from "./components/Column";
+import React, { useState, useEffect } from "react";
+import { useSetRecoilState } from "recoil";
+import Column from "./Column";
 import { DragDropContext } from "react-beautiful-dnd";
-import "./App.scss";
+import { savedState } from "../Provider";
+import "./container.scss";
 
-const initialItems = [
-  { id: "startTime", name: "Start Time" },
-  { id: "stopTime", name: "Stop Time" },
-  { id: "perPoint", name: "Per Point" },
-  { id: "initialMargin", name: "Initial Margin" },
-  { id: "symbol&Description", name: "Symbol & Description" },
-  { id: "change", name: "Change" },
-  { id: "change%", name: "Change %" },
-  { id: "last", name: "Last" },
-  { id: "lastVolume", name: "Last Volume" },
-  { id: "bid", name: "Bid" },
-  { id: "bidSize", name: "Bid Size" },
-  { id: "ask", name: "Ask" },
-  { id: "askSize", name: "Ask Size" },
-  { id: "totalVolume", name: "Total Volume" },
-];
+const App = ({ availableColumns, visibleColumns, fixedColumns }) => {
 
-const App = () => {
+  const setColumnState = useSetRecoilState(savedState);
+
   const initialColumns = {
     available: {
       id: "available",
-      list: initialItems,
+      list: availableColumns,
       lockable: false,
     },
     visible: {
       id: "visible",
-      list: [],
+      list: visibleColumns,
       lockable: true,
     },
   };
   const [columns, setColumns] = useState(initialColumns);
+  const [lockIndex, setLockIndex] = useState(null);
+
+  useEffect(() => {
+    const { visible } = columns;
+    setColumnState({
+      visibleColumns: visible.list.map(item => item.id),
+      fixedColumns: lockIndex !== null ? lockIndex + 1 : 0
+    })
+    console.log('useEffect', columns, lockIndex)
+  }, [columns, lockIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onDragEnd = ({ source, destination }) => {
     // Make sure we have a valid destination
@@ -105,7 +103,12 @@ const App = () => {
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="columns">
         {Object.values(columns).map((col) => (
-          <Column col={col} key={col.id} />
+          <Column
+            col={col}
+            key={col.id}
+            lockIndex={lockIndex}
+            setLockIndex={setLockIndex}
+          />
         ))}
       </div>
     </DragDropContext>
