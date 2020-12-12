@@ -29,7 +29,7 @@ const App = ({ availableColumns, visibleColumns, fixedColumns }) => {
       visibleColumns: visible.list.map((item) => item.id),
       fixedColumns: lockIndex !== null ? lockIndex + 1 : 0,
     });
-  }, [columns, lockIndex]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [columns, lockIndex, setSavedState]);
 
   const onDragEnd = ({ source, destination }) => {
     // Make sure we have a valid destination
