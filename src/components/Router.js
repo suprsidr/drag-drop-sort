@@ -3,6 +3,7 @@ import { useRoutes } from "hookrouter";
 
 import HomePage from "./HomePage";
 import About from "./About";
+import Results from "./Results";
 import NotFound from "./NotFound";
 
 const Router = () => {
@@ -10,6 +11,7 @@ const Router = () => {
   const routes = {
     "/": () => <HomePage />,
     "/about": () => <About />,
+    "/results": () => <Results />,
   };
   /* eslint-enable */
 

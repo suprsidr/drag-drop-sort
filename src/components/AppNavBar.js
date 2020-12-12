@@ -38,6 +38,9 @@ const AppNavBar = () => {
         <Nav.Link href="/about" onClick={(e) => goto(e, "/about")}>
           About
         </Nav.Link>
+        <Nav.Link href="/results" onClick={(e) => goto(e, "/results")}>
+          Results
+        </Nav.Link>
       </Nav>
       <Form inline>
         <Form.Check

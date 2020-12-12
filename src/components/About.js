@@ -28,8 +28,10 @@ export default function About() {
               <ol>
                 <li>
                   available columns: an array of objects, each item is an object
-                  with &quot;id&quot; string property for unique identification and &quot;name&quot;
-                  string property for displaying like &#123; id: &quot;startTime&quot;, name: &quot;Start Time&quot; &#125;
+                  with &quot;id&quot; string property for unique identification
+                  and &quot;name&quot; string property for displaying like
+                  &#123; id: &quot;startTime&quot;, name: &quot;Start Time&quot;
+                  &#125;
                 </li>
                 <li>
                   visible columns: an array of strings, each string is a

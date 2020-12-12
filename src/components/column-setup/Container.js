@@ -6,31 +6,29 @@ import { savedState } from "../Provider";
 import "./container.scss";
 
 const App = ({ availableColumns, visibleColumns, fixedColumns }) => {
-
-  const setColumnState = useSetRecoilState(savedState);
+  const setSavedState = useSetRecoilState(savedState);
 
   const initialColumns = {
     available: {
       id: "available",
-      list: availableColumns,
+      list: availableColumns.slice(),
       lockable: false,
     },
     visible: {
       id: "visible",
-      list: visibleColumns,
+      list: visibleColumns.slice(),
       lockable: true,
     },
   };
   const [columns, setColumns] = useState(initialColumns);
-  const [lockIndex, setLockIndex] = useState(null);
+  const [lockIndex, setLockIndex] = useState(fixedColumns);
 
   useEffect(() => {
     const { visible } = columns;
-    setColumnState({
-      visibleColumns: visible.list.map(item => item.id),
-      fixedColumns: lockIndex !== null ? lockIndex + 1 : 0
-    })
-    console.log('useEffect', columns, lockIndex)
+    setSavedState({
+      visibleColumns: visible.list.map((item) => item.id),
+      fixedColumns: lockIndex !== null ? lockIndex + 1 : 0,
+    });
   }, [columns, lockIndex]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onDragEnd = ({ source, destination }) => {
