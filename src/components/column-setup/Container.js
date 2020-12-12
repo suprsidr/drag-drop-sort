@@ -35,6 +35,13 @@ const App = ({ availableColumns, visibleColumns, fixedColumns }) => {
     // Make sure we have a valid destination
     if (destination === undefined || destination === null) return null;
 
+    // Don't allow re-order of locked
+    if (
+      initialColumns[destination.droppableId].lockable &&
+      destination.index <= lockIndex
+    )
+      return null;
+
     // Make sure we're actually moving the item
     if (
       source.droppableId === destination.droppableId &&

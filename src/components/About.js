@@ -2,7 +2,7 @@ import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import './about.scss';
+import "./about.scss";
 
 export default function About() {
   return (
@@ -15,9 +15,7 @@ export default function About() {
       </Row>
       <Row>
         <Col>
-          <h4>
-            This app is the product of a code challenge.
-          </h4>
+          <h4>This app is the product of a code challenge.</h4>
           <p>Requirements:</p>
           <ul>
             <li>
