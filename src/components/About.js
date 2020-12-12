@@ -2,6 +2,8 @@ import React from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
+import './about.scss';
+
 export default function About() {
   return (
     <>
@@ -14,14 +16,13 @@ export default function About() {
       <Row>
         <Col>
           <h4>
-            This app is the product of a code challenge for a job that I am
-            interested in.
+            This app is the product of a code challenge.
           </h4>
           <p>Requirements:</p>
           <ul>
             <li>
               Please create Column Setup component according to this design:
-              <img src="/component.jpg" alt="Component preview" />
+              <img src="/component.jpg" alt="Component preview" width="800" />
             </li>
             <li>
               The component should take three parameters:
@@ -88,6 +89,11 @@ export default function About() {
               - a new way of managing state in React apps
             </li>
             <li>Theme switcher.</li>
+            <li>
+              <a href="https://www.highcharts.com/" title="HighCharts">
+                HighCharts
+              </a>
+            </li>
             <li>
               Hosted on{" "}
               <a href="https://www.netlify.com/" title="Netlify">
