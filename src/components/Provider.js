@@ -40,17 +40,19 @@ export const columnState = selector({
 });
 
 const StateUpdater = () => {
-  const [persistedState, setPersistedState] = useColumnState("columnState");
+
   const [saved, setSaved] = useRecoilState(savedState);
+  const [persistedState, setPersistedState] = useColumnState(saved);
+
   useEffect(() => {
     if (JSON.stringify(persistedState) !== JSON.stringify(saved)) {
       setSaved(persistedState);
     }
-  }, [persistedState, setSaved]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [persistedState]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     setPersistedState(saved);
-  }, [saved, setPersistedState]);
+  }, [saved]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return null;
 };
