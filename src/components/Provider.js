@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import propTypes from "prop-types";
-import { RecoilRoot, atom, selector } from "recoil";
-// import createPersistedState from "use-persisted-state";
+import { RecoilRoot, atom, selector, useRecoilState } from "recoil";
+import createPersistedState from "use-persisted-state";
 
-// export const useColumnState = createPersistedState('columnState');
 import { populationData } from "../data";
+
+export const useColumnState = createPersistedState("columnState");
 
 const allAvailableColumns = Object.entries(populationData).reduce(
   (prev, [id, { name }]) => {
@@ -38,7 +39,30 @@ export const columnState = selector({
   },
 });
 
-const Provider = ({ children }) => <RecoilRoot>{children}</RecoilRoot>;
+const StateUpdater = () => {
+  const [persistedState, setPersistedState] = useColumnState("columnState");
+  const [saved, setSaved] = useRecoilState(savedState);
+  useEffect(() => {
+    if (JSON.stringify(persistedState) !== JSON.stringify(saved)) {
+      setSaved(persistedState);
+    }
+  }, [persistedState, setSaved]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    setPersistedState(saved);
+  }, [saved, setPersistedState]);
+
+  return null;
+};
+
+const Provider = ({ children }) => {
+  return (
+    <RecoilRoot>
+      <StateUpdater />
+      {children}
+    </RecoilRoot>
+  );
+};
 
 Provider.propTypes = {
   children: propTypes.oneOfType([
