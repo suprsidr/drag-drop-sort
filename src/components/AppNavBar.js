@@ -1,9 +1,11 @@
 import React, { useEffect } from "react";
+import { useRecoilValue } from "recoil";
 import createPersistedState from "use-persisted-state";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Form from "react-bootstrap/Form";
 import { navigate } from "hookrouter";
+import { savedState } from "./Provider";
 
 import "./appNavBar.scss";
 
@@ -11,6 +13,7 @@ const useThemeState = createPersistedState("theme");
 
 const AppNavBar = () => {
   const [theme, setTheme] = useThemeState("light");
+  const saved = useRecoilValue(savedState);
 
   useEffect(() => {
     switch (theme) {
@@ -38,9 +41,11 @@ const AppNavBar = () => {
         <Nav.Link href="/about" onClick={(e) => goto(e, "/about")}>
           About
         </Nav.Link>
-        <Nav.Link href="/results" onClick={(e) => goto(e, "/results")}>
-          Results
-        </Nav.Link>
+        {saved.visibleColumns.length > 0 && (
+          <Nav.Link href="/results" onClick={(e) => goto(e, "/results")}>
+            Results
+          </Nav.Link>
+        )}
       </Nav>
       <Form inline>
         <Form.Check

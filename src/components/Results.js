@@ -92,7 +92,7 @@ const Results = () => {
     );
   }
 
-  return null;
+  return <div data-testid="no-results"></div>;
 };
 
 export default Results;
