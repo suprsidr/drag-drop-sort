@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -51,16 +51,25 @@ const options = {
 };
 
 const Results = () => {
+  const [state, setState] = useState(options);
   const saved = useRecoilValue(savedState);
 
   const [show, setShow] = useRecoilState(modalToggle);
 
   useEffect(() => {
-    options.series[0].data = saved.visibleColumns.map((key) => {
+    const data = saved.visibleColumns.map((key) => {
       const { name, population } = populationData[key];
       return [name, population];
     });
-  }, [saved]);
+    setState({
+      ...state,
+      series: [
+        {
+          data,
+        },
+      ],
+    });
+  }, [saved]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (saved.visibleColumns.length > 0) {
     return (
@@ -77,7 +86,7 @@ const Results = () => {
               Edit
             </a>
           </div>
-          <HighchartsReact highcharts={Highcharts} options={{ ...options }} />
+          <HighchartsReact highcharts={Highcharts} options={{ ...state }} />
         </Col>
       </Row>
     );
