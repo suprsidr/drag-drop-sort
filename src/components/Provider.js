@@ -50,7 +50,7 @@ const StateUpdater = () => {
 
   useEffect(() => {
     if (JSON.stringify(persistedState) !== JSON.stringify(saved)) {
-      setSaved(persistedState);
+      setSaved(persistedState || saved);
     }
   }, [persistedState]); // eslint-disable-line react-hooks/exhaustive-deps
 
