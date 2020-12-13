@@ -1,5 +1,6 @@
 import React from "react";
 import { useRecoilValue, useRecoilState } from "recoil";
+import { A } from "hookrouter";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Results from "./Results";
@@ -30,7 +31,20 @@ const HomePage = () => {
           </Col>
         </Row>
       )}
-      <Results />
+      {saved.visibleColumns.length > 0 && (
+        <Row>
+          <Col className="text-center">
+            <h1>Great!</h1>
+            <p>
+              Now go check your{" "}
+              <A href="/results" title="results">
+                results
+              </A>
+              .
+            </p>
+          </Col>
+        </Row>
+      )}
     </>
   );
 };
