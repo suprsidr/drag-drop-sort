@@ -15,6 +15,11 @@ const allAvailableColumns = Object.entries(populationData).reduce(
   []
 );
 
+export const modalToggle = atom({
+  key: "modalToggle",
+  default: false,
+});
+
 export const savedState = atom({
   key: "savedState",
   default: {
@@ -40,7 +45,6 @@ export const columnState = selector({
 });
 
 const StateUpdater = () => {
-
   const [saved, setSaved] = useRecoilState(savedState);
   const [persistedState, setPersistedState] = useColumnState(saved);
 

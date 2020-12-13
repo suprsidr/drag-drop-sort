@@ -5,7 +5,11 @@ import { DragDropContext } from "react-beautiful-dnd";
 import { savedState } from "../Provider";
 import "./container.scss";
 
-const App = ({ availableColumns, visibleColumns, fixedColumns }) => {
+export const Container = ({
+  availableColumns,
+  visibleColumns,
+  fixedColumns,
+}) => {
   const setSavedState = useSetRecoilState(savedState);
 
   const initialColumns = {
@@ -120,4 +124,4 @@ const App = ({ availableColumns, visibleColumns, fixedColumns }) => {
   );
 };
 
-export default App;
+export default Container;

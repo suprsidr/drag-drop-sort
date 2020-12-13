@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useRecoilState } from "recoil";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import { savedState } from "./Provider";
+import { savedState, modalToggle } from "./Provider";
 import { populationData } from "../data";
 
 const options = {
@@ -15,67 +15,75 @@ const options = {
   title: {
     text: "World's Population 2020",
   },
+  subtitle: {
+    text:
+      'Source: <a href="https://www.worldometers.info/world-population/population-by-country/">worldometer</a>',
+  },
   xAxis: {
     type: "category",
     labels: {
       rotation: -45,
       style: {
-        fontSize: "13px",
-        fontFamily: "Verdana, sans-serif",
+        fontSize: ".80rem",
       },
     },
   },
   yAxis: {
     min: 0,
     title: {
-      text: "Population (millions)",
+      text: "Population",
     },
   },
   legend: {
     enabled: false,
   },
   tooltip: {
-    pointFormat: "Population in 2020: <b>{point.y:.1f} millions</b>",
+    useHTML: true,
+    headerFormat: "",
+    pointFormat: "Population in 2020: <b>{point.y:,.0f}</b>",
   },
   series: [
     {
       name: "Population",
       data: [],
-      dataLabels: {
-        enabled: true,
-        rotation: -90,
-        color: "#FFFFFF",
-        align: "right",
-        format: "{point.y:.1f}", // one decimal
-        y: 10, // 10 pixels down from the top
-        style: {
-          fontSize: "13px",
-          fontFamily: "Verdana, sans-serif",
-        },
-      },
     },
   ],
 };
 
-const Results = ({ visibleColumns }) => {
+const Results = () => {
   const saved = useRecoilValue(savedState);
 
-  useEffect(() => {
-    options.series[0].data = (visibleColumns || saved.visibleColumns).map(
-      (key) => {
-        const { name, population } = populationData[key];
-        return [name, population / 1000000000];
-      }
-    );
-  }, [saved, visibleColumns]);
+  const [show, setShow] = useRecoilState(modalToggle);
 
-  return (
-    <Row>
-      <Col>
-        <HighchartsReact highcharts={Highcharts} options={{ ...options }} />
-      </Col>
-    </Row>
-  );
+  useEffect(() => {
+    options.series[0].data = saved.visibleColumns.map((key) => {
+      const { name, population } = populationData[key];
+      return [name, population];
+    });
+  }, [saved]);
+
+  if (saved.visibleColumns.length > 0) {
+    return (
+      <Row>
+        <Col>
+          <div className="text-right">
+            <a
+              href="edit"
+              onClick={(e) => {
+                e.preventDefault();
+                setShow(!show);
+              }}
+            >
+              Edit
+            </a>
+          </div>
+          <HighchartsReact highcharts={Highcharts} options={{ ...options }} />
+        </Col>
+      </Row>
+    );
+  }
+
+  return null;
 };
 
 export default Results;
