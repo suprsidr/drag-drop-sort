@@ -3,7 +3,6 @@ import { useRecoilValue, useRecoilState } from "recoil";
 import { A } from "hookrouter";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Results from "./Results";
 import "./homePage.scss";
 
 import { savedState, modalToggle } from "./Provider";
