@@ -9,11 +9,14 @@
 }
 
 .list {
-  background-color: #101116;
   border-radius: .3rem;
   padding: .5rem 1rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   margin-top: .5rem
+}
+
+.dark .list {
+  background-color: #101116;
 }
