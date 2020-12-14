@@ -1,9 +1,8 @@
 import "@testing-library/jest-dom/extend-expect";
 import React from "react";
-import { RecoilRoot } from "recoil";
 import { render } from "@testing-library/react";
 import Container from "../column-setup/Container";
-import Provider, { savedState } from "../Provider";
+import Provider from "../Provider";
 
 const props = {
   availableColumns: [
@@ -27,19 +26,13 @@ describe("The Container component", () => {
   });
 
   test("should show visible", () => {
+    props.visibleColumns = [{ id: "indonesia", name: "Indonesia" }];
     const { getByText } = render(
-      <RecoilRoot
-        initializeState={(snap) =>
-          snap.set(savedState, {
-            visibleColumns: ["china", "unitedStates"],
-            fixedColumns: 0,
-          })
-        }
-      >
+      <Provider>
         <Container {...props} />
-      </RecoilRoot>
+      </Provider>
     );
 
-    expect(getByText(/United States/i)).toBeInTheDocument();
+    expect(getByText(/Indonesia/i)).toBeInTheDocument();
   });
 });
